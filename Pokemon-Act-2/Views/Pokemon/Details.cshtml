@@ -1,0 +1,29 @@
+﻿@model Pokemon_Act_2.Models.Pokemon
+
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<div class="container">
+    <h1>@Model.Name</h1>
+
+    <div class="pokemon-image">
+        <img src="@Model.Sprites.FrontDefault" alt="@Model.Name" />
+    </div>
+
+    <h2>Moves</h2>
+    <ul>
+        @foreach (var move in Model.Moves)
+        {
+            <li>@move.MoveDetail.Name</li>
+        }
+    </ul>
+
+    <h2>Abilities</h2>
+    <ul>
+        @foreach (var ability in Model.Abilities)
+        {
+            <li>@ability.AbilityDetail.Name</li>
+        }
+    </ul>
+</div>

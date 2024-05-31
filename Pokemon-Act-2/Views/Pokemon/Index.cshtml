@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h1>Pokémon List</h1>
+
+    <ul class="pokemon-list">
+        @foreach (var pokemon in Model)
+        {
+            <li><a asp-controller="Pokemon" asp-action="Details" asp-route-name="@pokemon.Name">@pokemon.Name</a></li>
+        }
+    </ul>
+
+    @{
+        int page = ViewData["Page"] != null ? (int)ViewData["Page"] : 1;
+        int pageSize = ViewData["PageSize"] != null ? (int)ViewData["PageSize"] : 20;
+        int totalCount = ViewData["TotalCount"] != null ? (int)ViewData["TotalCount"] : 0;
+        int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+    }
+
+    <div>
+        Page @(page) of @totalPages
+    </div>
+
+    <div class="pagination">
+        @if (page > 1)
+        {
+            <a asp-action="Index" asp-route-page="1" asp-route-pageSize="@pageSize">First</a>
+            <a asp-action="Index" asp-route-page="@(page - 1)" asp-route-pageSize="@pageSize">Previous</a>
+        }
+        else
+        {
+            <span>First</span>
+            <span>Previous</span>
+        }
+
+        @if (page < totalPages)
+        {
+            <a asp-action="Index" asp-route-page="@(page + 1)" asp-route-pageSize="@pageSize">Next</a>
+            <a asp-action="Index" asp-route-page="@totalPages" asp-route-pageSize="@pageSize">Last</a>
+        }
+        else
+        {
+            <span>Next</span>
+            <span>Last</span>
+        }
+    </div>
+</div>

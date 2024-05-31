@@ -1,8 +1,12 @@
+using Pokemon_Act_2.Controllers;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpClient<PokemonController>(client =>
+{
+    client.BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +26,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Pokemon}/{action=Index}/{id?}");
 
 app.Run();
